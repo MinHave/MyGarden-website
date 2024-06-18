@@ -30,9 +30,9 @@
           </v-btn>
         </v-col>
         <v-col class="justify-center" cols="12">
-          <v-btn depressed class="mt-2 ml-auto mb-3 mb-md-0" @click="resetPassword">
+          <v-btn depressed class="mt-2 ml-auto mb-3 mb-md-0" @click="toggleStatus">
             <v-icon left>mdi-lock-reset</v-icon>
-            Toggle Account
+            Toggle Account Status
           </v-btn>
         </v-col>
       </v-row>
@@ -64,6 +64,13 @@ export default {
           title: 'Administration',
           message: `A link has been sent to ${this.user.email}`
         })
+      }
+    },
+
+    async toggleStatus() {
+      var response = await apiService.toggleUserStatus(this.user.id)
+      if (response == true) {
+        this.getUser()
       }
     }
   },

@@ -154,6 +154,12 @@ const service = {
   },
   getUserById(userId: string) {
     return this.get(`user/${userId}`)
+  },
+  toggleUserStatus(userId: string) {
+    return this.post('user/toggle', userId)
+  },
+  toggleGardenStatus(gardenId: string) {
+    return this.post('garden/toggle', gardenId)
   }
 
   //#endregion Endpoints

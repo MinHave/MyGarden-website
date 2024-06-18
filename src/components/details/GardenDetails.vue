@@ -20,7 +20,7 @@
 
       <v-row dense no-gutters>
         <v-col class="justify-center" cols="12">
-          <v-btn depressed class="mt-2 ml-auto mb-3 mb-md-0" @click="resetPassword">
+          <v-btn depressed class="mt-2 ml-auto mb-3 mb-md-0" @click="toggleStatus">
             <v-icon left>mdi-lock-reset</v-icon>
             Toggle Garden Status
           </v-btn>
@@ -44,6 +44,13 @@ export default {
       this.loading = true
       this.garden = await apiService.getGardenById(this.$route.params.Id)
       this.loading = false
+    },
+
+    async toggleStatus() {
+      var response = await apiService.toggleGardenStatus(this.garden.id)
+      if (response == true) {
+        this.getGarden()
+      }
     }
   },
   created() {
