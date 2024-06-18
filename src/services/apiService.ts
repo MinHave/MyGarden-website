@@ -83,10 +83,16 @@ const service = {
     }
   },
 
-  async post(endpoint: string, payload: object | string, options?: inOptions) {
-    return this.handleResponse(
-      axios.post(`${this.api}/${endpoint}`, payload, await this.getOptions(options))
-    )
+  async post(endpoint: string, payload: object | string | undefined, options?: inOptions) {
+    if (payload !== undefined) {
+      return this.handleResponse(
+        axios.post(`${this.api}/${endpoint}`, payload, await this.getOptions(options))
+      )
+    } else {
+      return this.handleResponse(
+        axios.post(`${this.api}/${endpoint}`, undefined, await this.getOptions(options))
+      )
+    }
   },
   postJsonString(endpoint: string, payload: object | string, options: inOptions) {
     return this.post(endpoint, JSON.stringify(payload), {
@@ -156,7 +162,7 @@ const service = {
     return this.get(`user/${userId}`)
   },
   toggleUserStatus(userId: string) {
-    return this.post('user/toggle', userId)
+    return this.post(`user/toggle/${userId}`, undefined)
   },
   toggleGardenStatus(gardenId: string) {
     return this.post('garden/toggle', gardenId)
