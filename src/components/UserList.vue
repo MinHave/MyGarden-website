@@ -1,9 +1,6 @@
 <template>
   <div>
     <div v-if="!detailsView">
-      <v-row no-gutters justify="space-between" align="center">
-        <v-checkbox @change="getUsers" v-model="showAll" label="Show disabled" />
-      </v-row>
       <v-data-table
         @click:row="showDetails"
         :headers="headers"
@@ -16,10 +13,12 @@
             item.name
           }}</RouterLink>
         </template>
+        <template #[`item.isDisabled`]="{ item }">
+          {{ item ? 'Enabled' : 'Disabled' }}
+        </template>
       </v-data-table>
     </div>
     <user-details v-else />
-    <!-- <create-edit-user ref="CreateEditUserRef" @user-updated="getUsers" /> -->
   </div>
 </template>
 
@@ -46,8 +45,8 @@ export default {
         key: 'email'
       },
       {
-        title: 'Enabled',
-        key: 'disabled'
+        title: 'Status',
+        key: 'isDisabled'
       }
     ]
   }),
