@@ -113,7 +113,7 @@ const service = {
   //#region Endpoints
 
   //#region Auth
-  login(credentials: credentials) {
+  adminLogin(credentials: credentials) {
     return this.post('auth/login', credentials, { noAuth: true })
   },
   refreshAuth(refreshCode: string): Promise<IUser> {
@@ -145,6 +145,9 @@ const service = {
   },
   getGardenList() {
     return this.get(`garden`)
+  },
+  getGardenById(gardenId: string) {
+    return this.get(`garden/${gardenId}`)
   },
   getUsers() {
     return this.get('user')

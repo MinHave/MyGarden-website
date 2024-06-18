@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async AUTHENTICATE(credentials: { username: string; password: string }) {
       try {
-        const user = await apiService.login(credentials)
+        const user = await apiService.adminLogin(credentials)
         this.updateUser(user)
         localStorage.setItem('refreshToken', user.refreshToken)
         return user
