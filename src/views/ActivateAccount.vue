@@ -41,10 +41,7 @@
         <v-window-item :value="true">
           <div class="pa-8">
             <div class="text-h5 mb-4">Account activated</div>
-            <p>
-              Your MyGarden account has been successfully activated and you have been logged in.
-            </p>
-            <v-btn class="mt-8" :to="{ name: 'UserList' }" block> Go to users </v-btn>
+            <p>Your MyGarden account has been successfully activated.</p>
           </div>
         </v-window-item>
       </v-window>
@@ -94,11 +91,6 @@ export default {
 
         try {
           await apiService.activateAccount(activationObject)
-
-          await authStore.AUTHENTICATE({
-            userName: route.query.email,
-            password: password.value
-          })
 
           password.value = null
           password2.value = null
