@@ -9,8 +9,14 @@ export interface credentials {
   password: string
 }
 
-export interface activationChanges {
+export interface resetPassword {
   username: string
   token: string
+  password: string
+}
+
+export interface IActivationChanges {
+  email: string
+  activationToken: string
   password: string
 }

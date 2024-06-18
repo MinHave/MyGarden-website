@@ -86,12 +86,14 @@ export default {
       if (isValid.value) {
         isLoading.value = true
 
+        let activationObject = {
+          email: route.query.email,
+          activationToken: route.query.token,
+          password: password.value
+        }
+
         try {
-          await apiService.activateAccount({
-            username: route.query.email,
-            token: route.query.token,
-            password: password.value
-          })
+          await apiService.activateAccount(activationObject)
 
           await authStore.AUTHENTICATE({
             userName: route.query.email,

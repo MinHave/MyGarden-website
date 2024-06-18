@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import type { activationChanges, credentials, inOptions } from '@/types/apiService'
+import type { resetPassword, credentials, inOptions, IActivationChanges } from '@/types/apiService'
 import { useAuthStore } from '@/stores/auth'
 import { DateTime } from 'luxon'
 import router from '@/router'
@@ -122,15 +122,16 @@ const service = {
   changePassword(passwordChanges: string) {
     return this.post('auth/changePassword', passwordChanges)
   },
-  activateAccount(activationChanges: activationChanges) {
-    return this.post('auth/activate', activationChanges)
+  activateAccount(activationChanges: IActivationChanges) {
+    console.log('activationChanges', activationChanges)
+    return this.post('auth/activateAccount', activationChanges)
   },
   resetPassword(username: string) {
     return this.postJsonString('auth/resetPassword', username, {
       noAuth: true
     })
   },
-  resetPasswordToken(options: activationChanges) {
+  resetPasswordToken(options: resetPassword) {
     return this.post('auth/resetPasswordToken', options, { noAuth: true })
   },
 

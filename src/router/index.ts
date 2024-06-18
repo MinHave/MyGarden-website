@@ -53,7 +53,7 @@ router.beforeEach(async (to, from, next) => {
   const success = await authStore.ENSURE_AUTH()
 
   // if not, redirect to login page.
-  if (!success) {
+  if (!success && to.name !== 'home' && to.name !== 'Activate' && to.name !== 'ResetPassword') {
     next({
       path: '/'
     })
