@@ -14,7 +14,7 @@
           }}</RouterLink>
         </template>
         <template #[`item.isDisabled`]="{ item }">
-          {{ item ? 'Enabled' : 'Disabled' }}
+          {{ item.isDisabled ? 'Disabled' : 'Enabled' }}
         </template>
       </v-data-table>
     </div>
