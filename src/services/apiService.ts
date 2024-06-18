@@ -120,7 +120,7 @@ const service = {
 
   //#region Auth
   adminLogin(credentials: credentials) {
-    return this.post('auth/login', credentials, { noAuth: true })
+    return this.post('auth/admin/login', credentials, { noAuth: true })
   },
   refreshAuth(refreshCode: string): Promise<IUser> {
     return this.postJsonString('auth/refresh', refreshCode, { noAuth: true })
