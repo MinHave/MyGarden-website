@@ -3,12 +3,30 @@ import apiService from '@/services/apiService'
 
 interface AuthState {
   user: IUser | null
+  alert: IAlert
+}
+type IAlert = {
+  show: boolean
+  title: string
+  color: string
+  textColor: string
+  message: string
+  details: string
 }
 
 export const useAuthStore = defineStore('auth', {
   state: (): AuthState => ({
-    user: null
+    user: null,
+    alert: {
+      show: false,
+      title: '',
+      color: '',
+      textColor: '',
+      message: '',
+      details: ''
+    }
   }),
+
   getters: {
     authToken: (state: AuthState) => state.user?.token,
     isAuthenticated: (state: AuthState) => !!state.user
