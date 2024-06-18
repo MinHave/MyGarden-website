@@ -17,7 +17,7 @@
           </tr>
           <tr>
             <td class="font-weight-bold">Status:</td>
-            <td>{{ user.isDiabled ? 'Disabled' : 'Enabled' }}</td>
+            <td>{{ user.isDisabled ? 'Disabled' : 'Enabled' }}</td>
           </tr>
         </tbody>
       </v-table>
