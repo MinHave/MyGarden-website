@@ -54,6 +54,7 @@ import { ref } from 'vue'
 import PasswordTextField from '@/components/PasswordTextField.vue'
 import apiService from '@/services/apiService'
 import { useAuthStore } from '@/stores/auth'
+import { useRoute } from 'vue-router'
 
 export default {
   name: 'ResetPassword',
@@ -69,6 +70,9 @@ export default {
     const newPassword2 = ref(null)
     const error = ref(null)
 
+    // inside setup function
+    const route = useRoute()
+
     const rules = {
       required: (value) => !!value || 'Value is required.',
       length: (value) => value?.length > 5 || 'Password must be at least 6 characters long.'
@@ -81,11 +85,17 @@ export default {
         isLoading.value = true
 
         try {
-          await apiService.resetPasswordToken({
+          console.log('object', {
             username: username.value,
-            token: this.$route.query.token,
+            token: route.query.token,
             password: newPassword.value
           })
+          let response = await apiService.resetPasswordToken({
+            username: username.value,
+            token: route.query.token,
+            password: newPassword.value
+          })
+          console.log('response', response)
 
           await authStore.AUTHENTICATE({ userName: username.value, password: newPassword.value })
           newPassword.value = null
@@ -93,6 +103,7 @@ export default {
           passwordReset.value = true
         } catch (e) {
           error.value = e.message
+          console.log('error', e)
         } finally {
           isLoading.value = false
         }
