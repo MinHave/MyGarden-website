@@ -1,11 +1,12 @@
 <script lang="ts" setup>
+// import { onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth'
 import { computed } from 'vue'
-import { useAuthStore } from '@/store/modules/auth'
 
 const authStore = useAuthStore()
 
 // Accessing state and getters
-// const isAuthenticated = computed(() => authStore.isAuthenticated)
+const isAuthenticated = computed(() => authStore.isAuthenticated)
 </script>
 
 <template>

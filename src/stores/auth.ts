@@ -1,17 +1,8 @@
 import { defineStore } from 'pinia'
 import apiService from '@/services/apiService'
 
-interface User {
-  token: string
-  refreshToken: string
-  roles: string[]
-  settings: Record<string, any>
-  expires: string
-  name?: string // Add other user properties as needed
-}
-
 interface AuthState {
-  user: User | null
+  user: IUser | null
 }
 
 export const useAuthStore = defineStore('auth', {
@@ -19,13 +10,9 @@ export const useAuthStore = defineStore('auth', {
     user: null
   }),
   getters: {
-    user: (state: AuthState) => state.user,
     authToken: (state: AuthState) => state.user?.token,
-    isAuthenticated: (state: AuthState) => !!state.user,
-    isAdmin: (state: AuthState) => state.user?.roles.includes('admin'),
-    isManager: (state: AuthState) =>
-      state.user?.roles.includes('manager') || state.user?.roles.includes('admin'),
-    hasRole: (state: AuthState) => (role: string) => state.user?.roles.includes(role)
+    isAuthenticated: (state: AuthState) => !!state.user
+    // isAdmin: (state: AuthState) => state.user?.roles.includes('admin'),
   },
   actions: {
     async AUTHENTICATE(credentials: { username: string; password: string }) {
@@ -69,13 +56,8 @@ export const useAuthStore = defineStore('auth', {
       localStorage.removeItem('refreshToken')
       this.updateUser(null)
     },
-    updateUser(user: User | null) {
+    updateUser(user: IUser | null) {
       this.user = user
-    },
-    updateUserSetting({ setting, value }: { setting: string; value: any }) {
-      if (this.user) {
-        this.user.settings[setting] = value
-      }
     }
   }
 })
